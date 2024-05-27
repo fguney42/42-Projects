@@ -27,8 +27,6 @@ int main(int argc,char **argv)
     std::ofstream outfile;
     std::string replace, find, name, line;
     size_t pos;
-    if (argc != 4)
-    std::cerr << "You entered missing or more arguments" << std::endl;
     if (argc == 4)
     {
         name = argv[1];
@@ -48,5 +46,7 @@ int main(int argc,char **argv)
         }
         ftFileClose(&infile, &outfile);
     }
+    else
+    std::cerr << "You entered missing or more arguments" << std::endl;
     return (0);
 }
