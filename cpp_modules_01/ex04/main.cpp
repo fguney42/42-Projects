@@ -8,17 +8,17 @@ void ftFileClose(std::ifstream *infile, std::ofstream *outfile)
     outfile->close();
 }
 
-int ftFileOpen(std::string name, std::ifstream *infile , std::ofstream *outfile)
+bool ftFileOpen(std::string name, std::ifstream *infile , std::ofstream *outfile)
 {
-    int a = 0;
+    bool isFileOpen = true;
     infile->open(name);
     if (!infile->is_open())
-    std::cerr << "infile is not opened" << std::endl, a = 1;
-    if (a == 0)
+    std::cerr << "infile is not opened" << std::endl, isFileOpen = false;
+    if (isFileOpen == true)
     outfile->open(name + ".replace");
     if (!outfile->is_open())
-    std::cerr << "infile is not create" << std::endl ,a = 1;
-    return (a);
+    std::cerr << "infile is not create" << std::endl ,isFileOpen = false;
+    return (isFileOpen);
 }
 
 int main(int argc,char **argv)
@@ -34,8 +34,8 @@ int main(int argc,char **argv)
         name = argv[1];
         find = argv[2];
         replace = argv[3];
-        int a = ftFileOpen(name, &infile, &outfile);
-        while (std::getline(infile, line) && a == 0)
+        bool isFileOpen = ftFileOpen(name, &infile, &outfile);
+        while (isFileOpen == true && std::getline(infile, line))
         {
             pos = line.find(find);
             while (pos != std::string::npos)
